@@ -3,8 +3,8 @@ A Batch Renderer built in c++, to practice cross-platform development, and to le
 
 ## Examples
 | Windows (OpenGL)  | MacOSX (Metal) |
-|---|---|
-|   |   |
+|--                 |             ---|
+| | ![](Examples/MacOSExample.png)|
 
 
 ## Supported Platforms
@@ -41,5 +41,5 @@ run GenerateProjects.bat
 git clone https://github.com/tomheeleynz/2D-Batch-Renderer.git
 cd 2D-Batch-Renderer
 run command cmake -G Xcode .
-In build settings in xcode of the ArcEngine Library, set bridging header to ArcEngine/src/Platform/MacOSX/Metal/ArcEngine-Bridging-Header.h 
+In build settings in Xcode of the ArcEngine Library, set bridging header to ArcEngine/src/Platform/MacOSX/Metal/ArcEngine-Bridging-Header.h 
 ```
