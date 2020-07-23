@@ -34,35 +34,13 @@ namespace Arc
 	
 	void Application::Run()
 	{
-    // Application Loop For MacOSX
-    #ifdef ARC_PLATFORM_MACOSX
         auto currentLayer = m_LayerMap.find("Editor");
         currentLayer->second->OnStart();
         
-        std::thread logicThread([](bool m_bIsRunning, Layer* currentLayer) {
-            while (m_bIsRunning) {
-                Renderer::Clear();
-                Renderer::ClearColor(0.2f, 0.3f, 0.3f);
-                currentLayer->OnUpdate();
-            }
-            
-        }, m_bIsRunning, currentLayer->second);
-
         while (m_bIsRunning) {
+            currentLayer->second->OnUpdate();
             m_Window->OnUpdate();
         }
-    #endif
-        
-    // Appliction Loop for Windows
-    #ifdef ARC_PLATFORM_WINDOWS
-		SceneManager::GetCurrentScene()->Start();
-
-		while (m_bIsRunning)
-        {
-			SceneManager::GetCurrentScene()->Update();
-			m_Window->OnUpdate();
-		}
-    #endif
 	}
 
     void Application::AddLayer(Layer* _pLayer)

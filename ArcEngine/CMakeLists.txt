@@ -82,9 +82,6 @@ if (APPLE)
     
 	# Setting Definitions
 	add_definitions(-DARC_PLATFORM_MACOSX)
-		
-    # ---- GLM
-    add_subdirectory("vendor/glm")
     
 	add_library(ArcEngine STATIC 
 		${ARC_CORE} 

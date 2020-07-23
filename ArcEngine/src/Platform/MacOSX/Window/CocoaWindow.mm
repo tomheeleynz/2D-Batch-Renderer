@@ -56,7 +56,22 @@ namespace Arc {
 
     void CocoaWindow::OnUpdate()
     {
-        [app run];
+        @autoreleasepool {
+
+            for (;;)
+            {
+                NSEvent* event = [NSApp nextEventMatchingMask:NSEventMaskAny
+                                                 untilDate:[NSDate distantPast]
+                                                    inMode:NSDefaultRunLoopMode
+                                                   dequeue:YES];
+                if (event == nil)
+                    break;
+
+                [app sendEvent:event];
+            }
+
+         } // autoreleasepool
+
     }
     
     GraphicsContext* CocoaWindow::GetContext()

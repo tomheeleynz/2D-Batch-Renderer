@@ -24,3 +24,4 @@ private:
 };
 
 #endif /* Editor_h */
+
