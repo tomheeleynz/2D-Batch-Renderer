@@ -1,0 +1,12 @@
+prefix="/Library/Frameworks/Mono.framework/Versions/6.10.0"
+exec_prefix="/Library/Frameworks/Mono.framework/Versions/6.10.0"
+libdir="/Library/Frameworks/Mono.framework/Versions/6.10.0/lib"
+includedir="/Library/Frameworks/Mono.framework/Versions/6.10.0/include"
+
+Name: FreeType 2
+Description: A free, high-quality, and portable font engine.
+Version: 16.2.10
+Requires:
+Libs: -L${libdir} -lfreetype
+Libs.private: -lz -lbz2 
+Cflags: -I${includedir}/freetype2 -I${includedir}

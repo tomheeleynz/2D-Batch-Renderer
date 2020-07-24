@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.17)
 project(ArcEngine)
 
 # Setting C++ Standard
-set (CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
 
 # GLOB together Files
 file(GLOB ARC_CORE "src/Arc/Core/*.h" "src/Arc/Core/*.cpp")
 file(GLOB ARC_SRC	"src/Arc.h")
 file(GLOB ARC_RENDERER "src/Arc/Renderer/*.h" "src/Arc/Renderer/*.cpp")
 file(GLOB ARC_SCENE "src/Arc/Scenes/*.h" "src/Arc/Scenes/*.cpp")
-file(GLOB ARC_SCRIPTING "src/Arc/Scripting/*.cpp" "src/Arc/Scripting/*.h")
 file(GLOB ARC_ECS "src/Arc/ECS/*.h" "src/Arc/ECS/*.cpp")
+file(GLOB ARC_SCRIPTING "src/Arc/Scripting/*.cpp" "src/Arc/Scripting/*.h")
 
 if (WIN32)
     file(GLOB ARC_POPENGL "src/Platform/Windows/OpenGL/*.h" "src/Platform/Windows/OpenGL/*.cpp")
@@ -90,16 +90,26 @@ if (APPLE)
 		${ARC_SRC} 
 		${ARC_RENDERER} 
 		${ARC_SCENE}
-        ${ARC_SCRIPTING}
         ${ARC_ECS}
+        ${ARC_SCRIPTING}
 	)
     
+    # Linking App Kit
     target_link_libraries(ArcEngine "-framework AppKit")
     target_include_directories(ArcEngine PUBLIC "src")
 
     # Linking Mono
-    target_link_libraries(ArcEngine "/Library/Frameworks/Mono.framework/Versions/6.10.0/lib/libmonosgen-2.0.1.dylib")
-    target_include_directories(ArcEngine PUBLIC "vendor/mono/mono-2.0")
+    find_library(
+        MONO_LIBRARY
+        NAMES monosgen-2.0.1
+        HINTS "vendor/mono/lib"
+    )
+
+    message(STATUS "Mono Library: ${MONO_LIBRARY}")
+
+    # Linking Mono
+    target_link_libraries(ArcEngine ${MONO_LIBRARY})
+    target_include_directories(ArcEngine PUBLIC "vendor/mono/include/mono-2.0")
     
     # Linking GLM
     target_include_directories(ArcEngine PUBLIC "vendor/glm")

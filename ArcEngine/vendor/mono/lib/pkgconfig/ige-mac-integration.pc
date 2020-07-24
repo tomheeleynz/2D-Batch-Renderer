@@ -1,0 +1,11 @@
+prefix=/Library/Frameworks/Mono.framework/Versions/6.10.0
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: ige-mac-integration
+Description: Mac menu bar and dock integration for GTK+
+Requires: gtk+-2.0
+Version: 0.9.4
+Libs: -L${libdir} -ligemacintegration
+Cflags: -I${includedir}/igemacintegration -DMAC_INTEGRATION
