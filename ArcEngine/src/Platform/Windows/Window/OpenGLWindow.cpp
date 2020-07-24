@@ -1,4 +1,5 @@
 #include "OpenGLWindow.h"
+#include "Arc/Core/InputManager.h"
 
 namespace Arc
 {
@@ -31,6 +32,23 @@ namespace Arc
 
 		glfwSetWindowUserPointer(m_pWindow, &m_Data);
 	
+		// Window Key Down Key Press
+		glfwSetKeyCallback(m_pWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			switch (action)
+			{
+			case GLFW_PRESS: {
+				InputManager::SetKeyPressed(key);
+				break;
+			}
+			case GLFW_RELEASE: {
+				InputManager::SetKeyReleased(key);
+				break;
+			}
+			default:
+				break;
+			}
+		});
+
 		// Window Close Callback
 		glfwSetWindowCloseCallback(m_pWindow, [](GLFWwindow* window) {
 			 WindowData* windowData = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
@@ -52,6 +70,11 @@ namespace Arc
 	void OpenGLWindow::Shutdown()
 	{
 
+	}
+
+	void OpenGLWindow::UpdateTitle(std::string _strTitle)
+	{
+	
 	}
 
 	GraphicsContext* OpenGLWindow::GetContext()

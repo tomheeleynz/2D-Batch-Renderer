@@ -59,10 +59,22 @@ if (WIN32)
 		${ARC_SCENE} 
 		${ARC_POPENGL_WINDOW}
         ${ARC_ECS}
+        ${ARC_SCRIPTING}
 	)
 
     # Linking Opengl
     target_link_libraries(ArcEngine ${OPENGL_LIBRARIES})
+    
+    # Linking Mono 
+    find_library(
+        MONO_LIBRARY
+        NAMES mono-2.0-sgen.lib
+        HINTS "vendor/mono/lib"
+    )
+    
+    message(STATUS "Mono Library: ${MONO_LIBRARY}")
+    target_link_libraries(ArcEngine ${MONO_LIBRARY})
+    target_include_directories(ArcEngine PUBLIC "vendor/mono/include/mono-2.0")
 
     # Linking GLFW
     target_link_libraries(ArcEngine glfw)
@@ -75,6 +87,12 @@ if (WIN32)
 
 	# Linking GLM
 	target_link_libraries(ArcEngine glm)
+
+    # Linking Entt
+    target_include_directories(ArcEngine PUBLIC "vendor/entt/single_include")
+
+    # Linking Rapid Json
+    target_include_directories(ArcEngine PUBLIC "vendor/rapidjson/include")
 endif(WIN32)
 
 if (APPLE)

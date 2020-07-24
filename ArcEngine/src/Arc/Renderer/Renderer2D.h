@@ -21,6 +21,7 @@ namespace Arc
 
 		static void DrawQuad(glm::vec3 position, glm::vec3 size, glm::vec3 color, float rotationAngle = 0);
         static void DrawQuad(glm::vec3 position, glm::vec3 size, glm::vec3 color, Texture* texture, float rotationAngl = 0);
+		static void FlushAndReset();
 	private:
 
 	};

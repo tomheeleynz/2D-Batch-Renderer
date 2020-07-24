@@ -12,6 +12,7 @@ namespace Arc
 		
 		virtual int GetWidth() override;
 		virtual int GetHeight() override;
+		virtual void* GetNative() override;
 		virtual void Bind(uint32_t slot = 0) override;
 	private:
 		unsigned int m_iTextureID;

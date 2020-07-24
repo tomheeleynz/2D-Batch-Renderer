@@ -1,9 +1,9 @@
-#include "Application.h"
 #include <iostream>
+
+#include "Application.h"
 #include "Arc/Renderer/Renderer.h"
 #include "Arc/Renderer/Texture.h"
 #include "Arc/Scripting/ScriptingEngine.h"
-#include <thread>
 
 namespace Arc
 {
@@ -38,6 +38,8 @@ namespace Arc
         currentLayer->second->OnStart();
         
         while (m_bIsRunning) {
+            Renderer::Clear();
+            Renderer::ClearColor(0.2f, 0.3f, 0.3f);
             currentLayer->second->OnUpdate();
             m_Window->OnUpdate();
         }

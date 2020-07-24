@@ -65,7 +65,7 @@ namespace Arc
     
     void Scene::Start()
     {
-        
+        Renderer2D::FlushAndReset();
     }
     
     void Scene::Update()

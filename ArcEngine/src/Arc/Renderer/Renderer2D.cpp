@@ -14,7 +14,7 @@ namespace Arc {
     {
 		IndexBuffer* quadIB;
         Shader* basic2DShader;
-        Texture* basicTexture;
+        //Texture* basicTexture;
         
         // Rendering Amount Variables
 		// ---- Quad
@@ -33,8 +33,8 @@ namespace Arc {
 
     void Renderer2D::Init()
     {
-        s_Data.basic2DShader = Shader::Create("/Users/thomasheeley/Desktop/ArcEngine/ArcEngine/src/Platform/MacOSX/Metal/Shaders.metal");
-        s_Data.basicTexture = Texture::Create("/Users/thomasheeley/Downloads/Adventurer/Individual Sprites/adventurer-attack1-00.png");
+        s_Data.basic2DShader = Shader::Create("src/Assets/Basic.shader");
+        //s_Data.basicTexture = Texture::Create("/Users/thomasheeley/Downloads/Adventurer/Individual Sprites/adventurer-attack1-00.png");
         
 		// Quad Base
 		s_Data.quadBase[0] = {0.5f, 0.5f, 0.0f, 1.0f};
@@ -136,6 +136,13 @@ namespace Arc {
         }
 
         s_Data.quadCount++;
+    }
+
+    void Renderer2D::FlushAndReset()
+    {
+        delete s_Data.quadVertices;
+        s_Data.quadVertices = new Vertex[s_Data.maxQuadVertices];
+        s_Data.quadCount = 0;
     }
 
 }

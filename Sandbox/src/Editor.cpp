@@ -6,12 +6,13 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "Editor.h"
 
 
 EditorLayer::EditorLayer() : Arc::Layer("Editor")
 {
-    Arc::Scene* newScene = new Arc::Scene("/Users/thomasheeley/Desktop/ArcEngine/Sandbox/src/Assets/FirstScene.json");
+    Arc::Scene* newScene = new Arc::Scene("src/Assets/SecondScene.arcsf");
     Arc::SceneManager::AddScene(newScene);
 }
 
@@ -22,15 +23,32 @@ void EditorLayer::OnStart()
 
 void EditorLayer::OnUpdate()
 {
-    if (Arc::InputManager::GetKeyPressed(ARC_KEY_P))
+    if (Arc::InputManager::GetKeyReleased(ARC_KEY_P))
     {
-        std::cout << "P Pressed" << std::endl;
+        Arc::SceneManager::ChangeScene("SecondScene");
     }
     
     if (Arc::InputManager::GetKeyReleased(ARC_KEY_D))
     {
-        std::cout << "D Released" << std::endl;
+        CreateScene("SecondScene");
     }
     
     Arc::SceneManager::GetCurrentScene()->Update();
+}
+
+void EditorLayer::CreateScene(std::string _strSceneName)
+{
+    std::string newSceneFileString = "src/Assets/" + _strSceneName + ".arcsf";
+
+    std::ofstream newSceneFile(newSceneFileString);
+
+    newSceneFile << '{' << std::endl;
+    newSceneFile << "   \"name\": " << "\""<< _strSceneName << "\"," << std::endl;
+    newSceneFile << "   \"Entities\": []" << std::endl;
+    newSceneFile << "}" << std::endl;
+
+    newSceneFile.close();
+    
+    Arc::Scene* newScene = new Arc::Scene(newSceneFileString);
+    Arc::SceneManager::AddScene(newScene);
 }

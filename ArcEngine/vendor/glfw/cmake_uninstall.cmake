@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "D:/dev/ArcEngine/ArcEngine/vendor/glfw/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: \"D:/dev/ArcEngine/ArcEngine/vendor/glfw/install_manifest.txt\"")
+if (NOT EXISTS "D:/dev/2D-Batch-Renderer/ArcEngine/vendor/glfw/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: \"D:/dev/2D-Batch-Renderer/ArcEngine/vendor/glfw/install_manifest.txt\"")
 endif()
 
-file(READ "D:/dev/ArcEngine/ArcEngine/vendor/glfw/install_manifest.txt" files)
+file(READ "D:/dev/2D-Batch-Renderer/ArcEngine/vendor/glfw/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})

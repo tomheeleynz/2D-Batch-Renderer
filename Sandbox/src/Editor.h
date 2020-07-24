@@ -9,6 +9,7 @@
 #define Editor_h
 
 #include <Arc.h>
+#include <string>
 
 class EditorLayer : public Arc::Layer
 {
@@ -17,8 +18,8 @@ public:
     
     void OnStart() override;
     void OnUpdate() override;
-    
-    void UpdateTitle();
+
+    void CreateScene(std::string _strName);
 private:
     Arc::Scene* currentScene;
 };

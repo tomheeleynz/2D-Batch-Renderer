@@ -17,6 +17,7 @@ namespace Arc
 		~OpenGLWindow();
 
 		void OnUpdate() override;
+		void UpdateTitle(std::string _strTitle) override;
 		GraphicsContext* GetContext() override;
 
 	private:

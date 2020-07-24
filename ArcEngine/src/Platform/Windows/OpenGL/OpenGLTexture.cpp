@@ -39,6 +39,11 @@ namespace Arc
 		return m_iHeight;
 	}
 
+	void* OpenGLTexture::GetNative()
+	{
+		return (void*)m_iTextureID;
+	}
+
 	void OpenGLTexture::Bind(uint32_t slot)
 	{
 		glActiveTexture(GL_TEXTURE0);

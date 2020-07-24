@@ -6,7 +6,7 @@ namespace Arc
 
 	SceneManager::SceneManager()
 	{
-	
+		m_strCurrentSceneName = "SecondScene";
 	
 	}
 
@@ -30,14 +30,25 @@ namespace Arc
 		return GetInstance()->GetCurrentSceneImpl();
 	}
 
+	void SceneManager::ChangeScene(std::string _strSceneName)
+	{
+		GetInstance()->ChangeSceneImpl(_strSceneName);
+	}
+
 	void SceneManager::AddSceneImpl(Scene* _pScene)
 	{
-		std::pair<std::string, Scene*> sceneData = std::pair<std::string, Scene*>(_pScene->GetSceneName(), _pScene);
-		m_mapScenes.insert(sceneData);
+		m_mapScenes.insert({_pScene->GetSceneName(), _pScene});
 	}
 
 	Scene* SceneManager::GetCurrentSceneImpl()
 	{
-		return m_mapScenes["First Scene"];
+		auto newScene = m_mapScenes.find(m_strCurrentSceneName);
+		newScene->second->Start();
+		return newScene->second;
+	}
+
+	void SceneManager::ChangeSceneImpl(std::string _strSceneName)
+	{
+		m_strCurrentSceneName = _strSceneName;
 	}
 }
