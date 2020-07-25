@@ -6,8 +6,7 @@ namespace Arc
 
 	SceneManager::SceneManager()
 	{
-		m_strCurrentSceneName = "SecondScene";
-	
+		m_strCurrentSceneName = "First Scene";
 	}
 
 	SceneManager* SceneManager::GetInstance()

@@ -12,7 +12,7 @@
 
 EditorLayer::EditorLayer() : Arc::Layer("Editor")
 {
-    Arc::Scene* newScene = new Arc::Scene("src/Assets/SecondScene.arcsf");
+    Arc::Scene* newScene = new Arc::Scene("src/Assets/FirstScene.arcsf");
     Arc::SceneManager::AddScene(newScene);
 }
 

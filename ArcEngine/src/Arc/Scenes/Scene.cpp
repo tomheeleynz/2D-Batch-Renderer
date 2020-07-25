@@ -54,6 +54,27 @@ namespace Arc
                         m_Registry.emplace<SpriteRenderer>(entity, color, textureFile);
                         break;
                     }
+                    case 2:
+                    {
+                        std::string scriptName = components[j]["scriptName"].GetString();
+                        MonoClass* scriptClass = ScriptingEngine::CreateClass(scriptName);
+                        MonoObject* scriptObject = ScriptingEngine::CreateObject(scriptClass);
+
+                        // Start Method
+                        MonoMethod* startMethod = ScriptingEngine::CreateMethod("Start", scriptClass);
+                        MonoMethod* updateMethod = ScriptingEngine::CreateMethod("Update", scriptClass);
+
+                        Script newScriptComponent;
+                        newScriptComponent._scriptName = scriptName;
+                        newScriptComponent.scriptClass = scriptClass;
+                        newScriptComponent.scriptObject = scriptObject;
+                        newScriptComponent.startMethod = startMethod;
+                        newScriptComponent.updateMethod = updateMethod;
+
+                        m_Registry.emplace<Script>(entity, newScriptComponent);
+
+                        break;
+                    }
                     default:
                         break;
                 }
@@ -66,6 +87,14 @@ namespace Arc
     void Scene::Start()
     {
         Renderer2D::FlushAndReset();
+
+        auto startScriptView = m_Registry.view<Script>();
+
+        for (auto entity : startScriptView)
+        {
+            auto& scriptComponent = startScriptView.get<Script>(entity);
+            ScriptingEngine::RunScript(scriptComponent.startMethod, scriptComponent.scriptObject);
+        }
     }
     
     void Scene::Update()

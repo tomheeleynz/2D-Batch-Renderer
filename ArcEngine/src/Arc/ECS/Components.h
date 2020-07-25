@@ -31,9 +31,16 @@ namespace Arc {
 
     struct Script
     {
+        // Script Name
         std::string _scriptName;
+
+        // To Get Methods and Invoke Methods
         MonoClass* scriptClass;
         MonoObject* scriptObject;
+
+        // Start And Update Methods
+        MonoMethod* startMethod;
+        MonoMethod* updateMethod;
     };
 }
 

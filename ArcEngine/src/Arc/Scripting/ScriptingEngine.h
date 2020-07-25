@@ -21,7 +21,8 @@ namespace Arc {
         static ScriptingEngine* GetInstance();
         static MonoClass* CreateClass(std::string _className);
         static MonoObject* CreateObject(MonoClass* _class);
-        static void RunScript(std::string _methodName, MonoClass* scriptClass, MonoObject* scriptObject);
+        static void RunScript(MonoMethod* method, MonoObject* object);
+        static MonoMethod* CreateMethod(std::string methodName, MonoClass* scriptClass);
         
     private:
         ScriptingEngine();
@@ -31,7 +32,8 @@ namespace Arc {
         void InitImpl(std::string _strRuntimeLocation);
         MonoObject* CreateObjectImpl(MonoClass* _class);
         MonoClass* CreateClassImpl(std::string _className);
-        void RunMethodImpl(std::string _methodName, MonoClass* scriptClass, MonoObject* scriptObject);
+        void RunMethodImpl(MonoMethod* method, MonoObject* object);
+        MonoMethod* CreateMethodImpl(std::string methodName, MonoClass* scriptClass);
     private:
         MonoDomain* m_Domain;
         MonoAssembly* m_Assembly;
