@@ -28,6 +28,9 @@ namespace Arc
         
         virtual GraphicsContext* GetContext() = 0;
         virtual void UpdateTitle(std::string _strTitle) = 0;
+		virtual int GetWidth() = 0;
+		virtual int GetHeight() = 0;
+
 		static Window* Create(WindowsProps props = WindowsProps());
 	private:
 

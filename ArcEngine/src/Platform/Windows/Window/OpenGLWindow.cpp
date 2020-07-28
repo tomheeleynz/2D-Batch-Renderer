@@ -56,7 +56,43 @@ namespace Arc
 
 		// Window Resize Callback
 		glfwSetWindowSizeCallback(m_pWindow, [](GLFWwindow* window, int width, int height) {
+			WindowData* windowData = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			windowData->m_iHeight = height;
+			windowData->m_iWidth = width;
 			glViewport(0, 0, width, height);
+		});
+
+		glfwSetCursorPosCallback(m_pWindow, [](GLFWwindow* window, double xpos, double ypos) {
+			InputManager::SetMouseCoords((float)xpos, (float)ypos);
+		});
+
+		glfwSetMouseButtonCallback(m_pWindow, [](GLFWwindow* window, int button, int action, int mods) 
+		{
+			switch (button)
+			{
+			case GLFW_MOUSE_BUTTON_LEFT:
+			{
+				if (action == GLFW_PRESS) {
+					InputManager::SetMouseKeyPressed(button);
+				}
+				else {
+					InputManager::SetMouseKeyReleased(button);
+				}
+				break;
+			}
+			case GLFW_MOUSE_BUTTON_RIGHT:
+			{
+				if (action == GLFW_PRESS) {
+					InputManager::SetMouseKeyPressed(button);
+				}
+				else {
+					InputManager::SetMouseKeyReleased(button);
+				}
+				break;
+			}
+			default:
+				break;
+			}
 		});
 	}
 
@@ -75,6 +111,16 @@ namespace Arc
 	void OpenGLWindow::UpdateTitle(std::string _strTitle)
 	{
 	
+	}
+
+	int OpenGLWindow::GetHeight()
+	{
+		return m_Data.m_iHeight;
+	}
+
+	int OpenGLWindow::GetWidth()
+	{
+		return m_Data.m_iWidth;
 	}
 
 	GraphicsContext* OpenGLWindow::GetContext()

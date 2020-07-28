@@ -9,6 +9,7 @@
 #define KeyCodes_h
 
 #ifdef ARC_PLATFORM_WINDOWS
+	// Key Codes
 	#define 	ARC_KEY_A   65
 	#define 	ARC_KEY_B   66
 	#define 	ARC_KEY_C   67
@@ -35,6 +36,11 @@
 	#define 	ARC_KEY_X   88
 	#define 	ARC_KEY_Y   89
 	#define 	ARC_KEY_Z   90
+
+	// Mouse
+	#define ARC_MOUSE_BUTTON_LEFT   0	
+	#define ARC_MOUSE_BUTTON_RIGHT  1
+
 #endif
 
 #ifdef ARC_PLATFORM_MACOSX
@@ -67,4 +73,4 @@
 #endif
 
 
-#endif /* KeyCodes_h */
+#endif 

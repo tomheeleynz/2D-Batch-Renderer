@@ -41,6 +41,45 @@ namespace Arc {
         return false;
     }
 
+    std::pair<float, float> InputManager::GetMouseCoords()
+    {
+        return GetInstance()->GetMouseCoordsImpl();
+    }
+
+    bool InputManager::GetMouseKeyPressed(int mouseKey)
+    {
+        return GetInstance()->GetMouseKeyPressedImpl(mouseKey);
+    }
+
+    bool InputManager::GetMouseKeyReleased(int mouseKey)
+    {
+        return GetInstance()->GetMouseKeyReleasedImpl(mouseKey);
+    }
+
+    std::pair<float, float> InputManager::GetMouseCoordsImpl()
+    {
+        return std::pair<float, float>(m_MouseCoords.x, m_MouseCoords.y);
+    }
+
+    bool InputManager::GetMouseKeyPressedImpl(int mouseKey)
+    {
+        if (mouseState[mouseKey] == MOUSE_KEY_PRESSED)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool InputManager::GetMouseKeyReleasedImpl(int mouseKey)
+    {
+        if (mouseState[mouseKey] == MOUSE_KEY_RELEASED)
+        {
+            mouseState[mouseKey] = MOUSE_KEY_INITIAL;
+            return true;
+        }
+        return false;
+    }
+
     // Get Key Released
     bool InputManager::GetKeyReleased(int key)
     {
@@ -57,6 +96,7 @@ namespace Arc {
         return false;
     }
 
+ 
     // Setters
     // Key Pressed
     void InputManager::SetKeyPressed(int key)
@@ -78,5 +118,35 @@ namespace Arc {
     void InputManager::SetKeyReleasedImpl(int key)
     {
         state[key] = KEY_RELEASED;
+    }
+
+    void InputManager::SetMouseCoords(float _x, float _y)
+    {
+        GetInstance()->SetMouseCoordsImpl(_x, _y);
+    }
+
+    void InputManager::SetMouseKeyPressed(int key)
+    {
+        GetInstance()->SetMouseKeyPressedImpl(key);
+    }
+
+    void InputManager::SetMouseKeyReleased(int key)
+    {
+        GetInstance()->SetMouseKeyReleasedImpl(key);
+    }
+
+    void InputManager::SetMouseCoordsImpl(float _x, float _y)
+    {
+        m_MouseCoords = {_x, _y};
+    }
+    
+    void InputManager::SetMouseKeyPressedImpl(int key)
+    {
+        mouseState[key] = MOUSE_KEY_PRESSED;
+    }
+
+    void InputManager::SetMouseKeyReleasedImpl(int key)
+    {
+        mouseState[key] = MOUSE_KEY_RELEASED;
     }
 }

@@ -38,4 +38,9 @@
 #include "Arc/Core/Layer.h"
 //----------------
 
+// Engine UI
+// ---- Panel
+#include "Arc/UI/Engine/UI/Panel.h"
+//-----------------------
+
 #endif /* Arc_h */

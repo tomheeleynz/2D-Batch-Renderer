@@ -22,6 +22,7 @@ public:
     void CreateScene(std::string _strName);
 private:
     Arc::Scene* currentScene;
+    Arc::Panel* entityPanel;
 };
 
 #endif /* Editor_h */

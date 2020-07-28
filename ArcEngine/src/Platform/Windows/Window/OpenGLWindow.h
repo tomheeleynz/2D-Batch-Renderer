@@ -18,6 +18,9 @@ namespace Arc
 
 		void OnUpdate() override;
 		void UpdateTitle(std::string _strTitle) override;
+		int GetHeight() override;
+		int GetWidth() override;
+
 		GraphicsContext* GetContext() override;
 
 	private:

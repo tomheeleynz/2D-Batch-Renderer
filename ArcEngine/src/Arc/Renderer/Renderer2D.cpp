@@ -18,7 +18,7 @@ namespace Arc {
         
         // Rendering Amount Variables
 		// ---- Quad
-		int maxQuads = 10;
+		int maxQuads = 100;
 		int maxQuadVertices = maxQuads * 4;
 		int quadCount = 0;
 		int quadIndiceCount = 0;

@@ -100,19 +100,13 @@ namespace Arc
     void Scene::Update()
     {
         auto renderingView = m_Registry.view<Transform, SpriteRenderer>();
-
-        // Update Rendering Components
-        Renderer2D::BeginScene();
-        
+       
         for (auto entity : renderingView)
         {
             auto& transform = renderingView.get<Transform>(entity);
             auto& spriteRenderer = renderingView.get<SpriteRenderer>(entity);
-            
             Renderer2D::DrawQuad(transform.position, transform.scale, spriteRenderer.color, transform.rotationAngle);
         }
-        
-        Renderer2D::EndScene();
     }
     
     void Scene::AddEntity(std::string _strEntityName)
