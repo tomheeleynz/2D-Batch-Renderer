@@ -73,6 +73,7 @@ if (WIN32)
     )
     
     message(STATUS "Mono Library: ${MONO_LIBRARY}")
+
     target_link_libraries(ArcEngine ${MONO_LIBRARY})
     target_include_directories(ArcEngine PUBLIC "vendor/mono/include/mono-2.0")
 

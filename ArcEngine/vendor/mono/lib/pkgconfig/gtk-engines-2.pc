@@ -1,9 +1,0 @@
-prefix=/Library/Frameworks/Mono.framework/Versions/6.10.0
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: gtk-engines-2
-Description: GTK+ Theme Engines
-Version: 2.20.2
-Requires: gtk+-2.0

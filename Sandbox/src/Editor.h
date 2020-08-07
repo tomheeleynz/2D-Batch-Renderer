@@ -21,7 +21,7 @@ public:
 
     void CreateScene(std::string _strName);
 private:
-    Arc::Scene* currentScene;
+    Arc::Scene* m_ActiveScene;
     Arc::Panel* entityPanel;
 };
 

@@ -14,35 +14,32 @@ EditorLayer::EditorLayer() : Arc::Layer("Editor")
 {
     Arc::Scene* newScene = new Arc::Scene("src/Assets/FirstScene.arcsf");
     Arc::SceneManager::AddScene(newScene);
+    m_ActiveScene = Arc::SceneManager::GetCurrentScene();
     entityPanel = new Arc::Panel();
 }
 
 void EditorLayer::OnStart()
 {
-    Arc::SceneManager::GetCurrentScene()->Start();
-    entityPanel->Start();
+    m_ActiveScene->Start();
 }
 
 void EditorLayer::OnUpdate()
 {
-    bool leftClickPressed = Arc::InputManager::GetMouseKeyPressed(ARC_MOUSE_BUTTON_LEFT);
-    bool leftClickReleased = Arc::InputManager::GetMouseKeyReleased(ARC_MOUSE_BUTTON_LEFT);
+    if (Arc::InputManager::GetKeyReleased(ARC_KEY_D))
+    {
+        Arc::Entity* testEntity = m_ActiveScene->AddEntity("Test");
 
-    // Things Needed for Editor Update Loop
-    int currentWindowHeight = Arc::Application::Get()->GetWindow()->GetHeight();
-    int currentWindowWidth = Arc::Application::Get()->GetWindow()->GetWidth();
-    auto [x, y] = Arc::InputManager::GetMouseCoords();
+        if (testEntity->HasComponent<Arc::Transform>()) {
+            Arc::SpriteRenderer newSpriteRendererComponent;
+            newSpriteRendererComponent.color = { 0.5f, 0.5f, 0.5f };
+            testEntity->AddComponent<Arc::SpriteRenderer>(newSpriteRendererComponent);
+        }
+        else {
+            std::cout << "Does Not Have Component" << std::endl;
+        }
+    }
 
-    // Converting Mouse Coords
-    x = (x - (currentWindowWidth / 2)) / (currentWindowWidth / 2);
-    y = (-1 * (y - (currentWindowHeight / 2))) / (currentWindowHeight / 2);
-
-    Arc::Renderer2D::BeginScene();
-   
-    // Updating Scene Entities
-    Arc::SceneManager::GetCurrentScene()->Update();
-
-    Arc::Renderer2D::EndScene();
+    m_ActiveScene->Update();
 }
 
 void EditorLayer::CreateScene(std::string _strSceneName)

@@ -42,7 +42,6 @@ namespace Arc
 	Scene* SceneManager::GetCurrentSceneImpl()
 	{
 		auto newScene = m_mapScenes.find(m_strCurrentSceneName);
-		newScene->second->Start();
 		return newScene->second;
 	}
 

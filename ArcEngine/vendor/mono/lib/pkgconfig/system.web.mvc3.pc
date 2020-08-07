@@ -1,4 +1,4 @@
 Name: System.Web.Mvc3
 Description: System.Web.Mvc - ASP.NET MVC v3
 Version: 3.0.0.0
-Libs: -r:/Library/Frameworks/Mono.framework/Versions/6.10.0/lib/mono/gac/System.Web.Mvc/3.0.0.0__31bf3856ad364e35/System.Web.Mvc.dll
+Libs: -r:/cygdrive/d/j/workspace/build-package-win-mono/2019-10/packaging/Windows/tmp/mono/lib/mono/gac/System.Web.Mvc/3.0.0.0__31bf3856ad364e35/System.Web.Mvc.dll

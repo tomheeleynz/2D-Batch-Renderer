@@ -1,4 +1,4 @@
 Name: System.Web.Extensions.Design
 Description: System.Web.Extensions.Design ASP.NET 2.0 add-on
 Version: 1.0.61025.0
-Libs: -r:/Library/Frameworks/Mono.framework/Versions/6.10.0/lib/mono/gac/System.Web.Extensions.Design/1.0.61025.0__31bf3856ad364e35/System.Web.Extensions.Design.dll
+Libs: -r:/cygdrive/d/j/workspace/build-package-win-mono/2019-10/packaging/Windows/tmp/mono/lib/mono/gac/System.Web.Extensions.Design/1.0.61025.0__31bf3856ad364e35/System.Web.Extensions.Design.dll

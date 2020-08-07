@@ -36,8 +36,7 @@ namespace Arc {
 
     void ScriptingEngine::InitImpl(std::string _strRuntimeLocation)
     {
-        //mono_set_dirs("../ArcEngine/vendor/mono/lib", "../ArcEngine/vendor/mono/etc");
-
+        mono_set_dirs("../ArcEngine/vendor/mono/lib", "../ArcEngine/vendor/mono/etc");
         m_Domain = mono_jit_init("Scripting_Engine");
         m_Assembly = mono_domain_assembly_open(m_Domain, _strRuntimeLocation.c_str());
         m_Image = mono_assembly_get_image(m_Assembly);

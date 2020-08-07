@@ -19,6 +19,13 @@
 #include "Arc/Core/KeyCodes.h"
 //---------------------------
 
+// ECS
+// --- Entity
+#include "Arc/ECS/Entity.h"
+// --- Components
+#include "Arc/ECS/Components.h"
+// -------------
+
 // Rendering
 //----- Vertex Array
 #include "Arc/Renderer/VertexArray.h"

@@ -4,6 +4,7 @@
 
 // Engine Includes
 #include "Scene.h"
+#include "Arc/ECS/Entity.h"
 #include "Arc/ECS/Components.h"
 #include "Arc/Renderer/Renderer2D.h"
 #include "Arc/Scripting/ScriptingEngine.h"
@@ -60,19 +61,13 @@ namespace Arc
                         MonoClass* scriptClass = ScriptingEngine::CreateClass(scriptName);
                         MonoObject* scriptObject = ScriptingEngine::CreateObject(scriptClass);
 
-                        // Start Method
+                        /// Start Method
                         MonoMethod* startMethod = ScriptingEngine::CreateMethod("Start", scriptClass);
+                        // Update Method
                         MonoMethod* updateMethod = ScriptingEngine::CreateMethod("Update", scriptClass);
 
-                        Script newScriptComponent;
-                        newScriptComponent._scriptName = scriptName;
-                        newScriptComponent.scriptClass = scriptClass;
-                        newScriptComponent.scriptObject = scriptObject;
-                        newScriptComponent.startMethod = startMethod;
-                        newScriptComponent.updateMethod = updateMethod;
-
-                        m_Registry.emplace<Script>(entity, newScriptComponent);
-
+                        m_Registry.emplace<Script>(entity, scriptName, scriptClass, scriptObject, startMethod, updateMethod);
+                       
                         break;
                     }
                     default:
@@ -80,7 +75,7 @@ namespace Arc
                 }
             }
             
-            m_EntityMap.insert({entityName, entity});
+            m_EntityMap.insert({entityName, new Entity(entity, this)});
         }
 	}
     
@@ -88,33 +83,61 @@ namespace Arc
     {
         Renderer2D::FlushAndReset();
 
-        auto startScriptView = m_Registry.view<Script>();
-
-        for (auto entity : startScriptView)
         {
-            auto& scriptComponent = startScriptView.get<Script>(entity);
-            ScriptingEngine::RunScript(scriptComponent.startMethod, scriptComponent.scriptObject);
+            auto view = m_Registry.view<Script>();
+
+            for (auto entity : view)
+            {
+                auto& script = view.get<Script>(entity);
+                ScriptingEngine::RunScript(script.startMethod, script.scriptObject);
+            }
         }
     }
     
     void Scene::Update()
     {
-        auto renderingView = m_Registry.view<Transform, SpriteRenderer>();
-       
-        for (auto entity : renderingView)
+
         {
-            auto& transform = renderingView.get<Transform>(entity);
-            auto& spriteRenderer = renderingView.get<SpriteRenderer>(entity);
-            Renderer2D::DrawQuad(transform.position, transform.scale, spriteRenderer.color, transform.rotationAngle);
+            auto view = m_Registry.view<Script>();
+
+            for (auto entity : view)
+            {
+                auto& script = view.get<Script>(entity);
+                ScriptingEngine::RunScript(script.updateMethod, script.scriptObject);
+            }
+        }
+
+        {
+
+            auto view = m_Registry.view<Transform, SpriteRenderer>();
+
+            Renderer2D::BeginScene();
+
+            for (auto entity : view)
+            {
+                auto& transform = view.get<Transform>(entity);
+                auto& spriteRenderer = view.get<SpriteRenderer>(entity);
+                Renderer2D::DrawQuad(transform.position, transform.scale, spriteRenderer.color, transform.rotationAngle);
+            }
+
+            Renderer2D::EndScene();
         }
     }
     
-    void Scene::AddEntity(std::string _strEntityName)
+    Entity* Scene::AddEntity(std::string _strEntityName)
     {
-        auto entity = m_Registry.create();
-        m_Registry.emplace<Transform>(entity);
-        m_Registry.emplace<SpriteRenderer>(entity);
-        m_EntityMap.insert({_strEntityName, entity});
+        auto entityHandle = m_Registry.create();
+        Entity* newEntity = new Entity(entityHandle, this);
+        
+        Transform newTransformComponent;
+        newTransformComponent.position = {0.0f, 0.7f, 0.0f};
+        newTransformComponent.rotation = { 0.0f, 0.0f, 1.0f };
+        newTransformComponent.scale = {0.5f, 0.5f, 1.0f};
+        newTransformComponent.rotationAngle = 0.0f;
+
+        newEntity->AddComponent<Transform>(newTransformComponent);
+        m_EntityMap.insert({_strEntityName, newEntity});
+        return newEntity;
     }
 
 	std::string Scene::GetSceneName()

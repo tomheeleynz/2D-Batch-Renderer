@@ -1,9 +1,9 @@
-prefix=/Library/Frameworks/Mono.framework/Versions/6.10.0
+prefix=/cygdrive/d/j/workspace/build-package-win-mono/2019-10/packaging/Windows/tmp/mono
 exec_prefix=${prefix}
-libdir=/Library/Frameworks/Mono.framework/Versions/6.10.0/lib
+libdir=/cygdrive/d/j/workspace/build-package-win-mono/2019-10/packaging/Windows/tmp/mono/lib
 sourcesdir=${libdir}/monodoc/sources
 
 Name: Monodoc
 Description: Monodoc - Mono Documentation Tools
-Version: 6.10.0
+Version: 6.8.0
 Libs: /r:${prefix}/lib/mono/monodoc/monodoc.dll 

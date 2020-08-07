@@ -11,6 +11,8 @@
 
 namespace Arc
 {
+	class Entity;
+
 	class Scene
 	{
 	public:
@@ -18,13 +20,15 @@ namespace Arc
 
 		void Start();
         void Update();
-        void AddEntity(std::string _strEntityName);
+        Entity* AddEntity(std::string _strEntityName);
         
 		std::string GetSceneName();
 	private:
         rapidjson::Document m_SceneDocument;
 		std::string m_strSceneName;
-        std::map<std::string, entt::entity> m_EntityMap;
+        std::map<std::string, Entity*> m_EntityMap;
         entt::registry m_Registry;
+
+		friend class Entity;
 	};
 }

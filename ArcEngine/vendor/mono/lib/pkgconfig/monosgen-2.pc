@@ -6,6 +6,6 @@ sysconfdir=${prefix}/etc
 
 Name: Mono
 Description: Mono Runtime
-Version: 6.10.0
-Libs: -L${libdir}  -lmonosgen-2.0  -liconv   -lpthread
-Cflags: -I${includedir} -D_THREAD_SAFE
+Version: 6.8.0
+Libs: -L${libdir}  -lmonosgen-2.0 -mms-bitfields -mwindows  -lws2_32 -lpsapi -lole32 -lwinmm -loleaut32 -ladvapi32 -lversion
+Cflags: -I${includedir} -mms-bitfields -mwindows

@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <filesystem>
 #include "Application.h"
 #include "Arc/Renderer/Renderer.h"
 #include "Arc/Renderer/Texture.h"
@@ -14,7 +14,7 @@ namespace Arc
 		m_bIsRunning = true;
 		m_Window = std::unique_ptr<Window>(Window::Create());
         Renderer::Init(m_Window->GetContext());
-        // ScriptingEngine::Init("D:\\dev\\2D-Batch-Renderer\\bin\\exe\\Debug\\ExampleApp.dll");
+        ScriptingEngine::Init("..\\bin\\exe\\Debug\\ExampleApp.dll");
         s_Instance = this;
 	}
 
